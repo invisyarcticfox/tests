@@ -4,12 +4,10 @@ const darkModeToggle = document.querySelector("#darkmode-toggle");
 
 const enabledarkMode = () => {
   document.body.classList.add("darkmode");
-  darkModeToggle.classList.add("darkmode");
   localStorage.setItem("darkmode", "true");
 };
 const disabledarkMode = () => {
   document.body.classList.remove("darkmode");
-  darkModeToggle.classList.remove("darkmode");
   localStorage.setItem("darkmode", "false");
 };
 

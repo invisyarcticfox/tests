@@ -4,16 +4,30 @@ body {
   margin: 0;
   padding: 0;
   margin-left: 20px;
+  transition: all .3s ease;
+
+  &.darkmode {
+    a {
+      color: var(--body-acc2);
+      transition: all .3s ease;
+    }
+    #darkmode-toggle {
+      background: var(--body-bg);
+      transition: all .3s ease;
+    }
+  }
 }
 
 :root {
   --body-bg: #141414;
-  --body-fg: #fff;
+  --body-fg: #aaa;
   --body-acc: #00ee00;
+  --body-acc2: #001100;
 }
 .darkmode {
   background: var(--body-fg);
   color: var(--body-bg);
+  transition: all .3s ease;
 }
 
 #darkmode-toggle {
@@ -26,10 +40,6 @@ body {
   padding: 10px;
   width: 100px;
   height: 50px;
-  
-  &.darkmode {
-    background: var(--body-bg);
-  };
 }
 
 a {

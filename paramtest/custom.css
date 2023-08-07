@@ -5,3 +5,7 @@ body {
 .dynamic-content {
   display: none;
 }
+
+a::after {
+  content: attr(href);
+}

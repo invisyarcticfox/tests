@@ -14,6 +14,8 @@ $(document).ready(function () {
   // Check if the URL parameter is apples
   if (dynamicContent == 'uwu') {
     $('#owo').show();
+    $('#owolink').hide();
+    $('#uwulink').show();
   }
   // Check if the URL parmeter is empty or not defined, display default content
   else {
