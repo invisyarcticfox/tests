@@ -1,0 +1,40 @@
+body {
+  background: var(--body-bg);
+  color: var(--body-fg);
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+}
+
+:root {
+  --body-bg: #141414;
+  --body-fg: #fff;
+  --body-acc: #00ee00;
+}
+
+.darkmode {
+  background: var(--body-fg);
+  color: var(--body-bg);
+}
+
+#darkmode-toggle {
+  position: fixed;
+  float: right;
+  top: 20px;
+  right: 20px;
+  background: var(--body-fg);
+  cursor: pointer;
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+}
+#darkmode-toggle.darkmode {
+  background: var(--body-bg);
+}
+
+a {
+  color: var(--body-acc);
+}
+a::after {
+  content: attr(href);
+}/*# sourceMappingURL=custom.css.map */
