@@ -1,0 +1,14 @@
+@charset "UTF-8";
+:root {
+  --color: #aaa;
+  --background: #000;
+  --size: 1.5;
+}
+
+/*
+span[data-text="> "] {
+  &::before {
+    content: "guest@shamshitty";
+  }
+}
+*//*# sourceMappingURL=custom.css.map */
