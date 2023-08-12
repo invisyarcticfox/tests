@@ -1,0 +1,16 @@
+body {
+  background: #008080;
+  font-family: MSSansSerif;
+  font-size: 25px;
+  margin: 0;
+}
+
+@font-face {
+  font-family: MSSansSerif;
+  src: url(./font/MSSansSerif.ttf);
+}
+
+::selection {
+  background: transparent;
+  color: unset;
+}

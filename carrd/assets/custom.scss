@@ -1,0 +1,260 @@
+$--bor-tl: #eee solid;
+$--bor-rb: #0e0e0f solid;
+$--bor-b: 5px;
+$--bor-sm: 3px;
+$--bg-col: #c0c7c8;
+$--bg-col2: #fff;
+$--acc-col: #000080;
+
+
+#main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: $--bg-col;
+  width: calc(720px + 150px);
+  height: calc(480px + 40px);
+  border-top: none;
+  border-left: $--bor-tl $--bor-b;
+  border-right: $--bor-rb $--bor-b;
+  border-bottom: $--bor-rb $--bor-b;
+  z-index: 2;
+  &::after {
+    display: block;
+    content: "";
+    width: calc((720px + 150px) - 10px);
+    height: calc((480px + 40px) - 62px);
+    background: $--bg-col2;
+    border: $--bor-rb $--bor-sm;
+    margin-top: -75px;
+    margin-left: 1px;
+  }
+
+  #content {
+    padding: 10px;
+    padding-top: 12px;
+  }
+
+  img {
+    float: left;
+    width: 150px;
+    image-rendering: pixelated;
+  }
+
+  .names span {
+    margin-left: 10px;
+    &::selection {
+      background: #000080 !important;
+      color: #fff !important;
+    }
+  }
+  
+}
+
+
+#titlebar {
+  position: relative;
+  width: 100.1%;
+  /* idk why i have to do this */
+  height: 35px;
+  background: $--acc-col;
+  margin-top: -30px;
+  margin-left: -5px;
+  font-size: 20px;
+  border-top: $--bor-tl $--bor-b;
+  border-left: $--bor-tl $--bor-b;
+  border-right: $--bor-rb $--bor-b;
+  border-bottom: none;
+
+  .title {
+    float: left;
+    color: $--bg-col2;
+    margin-top: 7px;
+    cursor: default;
+
+    a {
+      color: $--bg-col2;
+      text-decoration: none;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-left: 5px;
+      margin-right: 5px;
+      image-rendering: pixelated;
+      &::selection {
+        background: #000080;
+      }
+    }
+  }
+
+  .icon {
+    float: right;
+    width: 22px;
+    height: 22px;
+    background: #c3c3c3;
+    margin-top: 3.5px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: $--bor-tl $--bor-sm;
+    border-left: $--bor-tl $--bor-sm;
+    border-right: $--bor-rb $--bor-sm;
+    border-bottom: $--bor-rb $--bor-sm;
+    cursor: pointer;
+
+    &.mini span {
+      font-size: 20px;
+      margin-bottom: 2px;
+      margin-left: 2px;
+    }
+    &.exp span {
+      font-size: 25px;
+      margin-left: 2px;
+      margin-bottom: 2px;
+      transform: scaleX(1.15);
+    }
+    &.close span {
+      font-size: 20px;
+      margin-top: -5px;
+      transform: scaleX(1.5);
+      font-family: monospace;
+    }
+  }
+}
+
+
+#toolbar {
+  ul {
+    list-style-type: none;
+    margin: 2px 0 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 20px;
+
+    li.tab {
+      float: left;
+      padding: 5px 10px;
+      margin: 0 5px;
+      &.active {
+        background: $--acc-col;
+
+        a {
+          color: #fff;
+          &::after {
+            background: #fff;
+          }
+        }
+      }
+
+      a {
+        color: #000;
+        text-decoration: none;
+        &::after {
+          content: "";
+          display: block;
+          height: 2px;
+          width: 10px;
+          background: #000;
+          margin-top: -2px;
+          margin-left: -2px;
+        }
+      }
+    }
+  }
+}
+
+#taskbar {
+  $--img-wh: 25px;
+  width: 100%;
+  height: 40px;
+  background: $--bg-col;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  font-size: 20px;
+  border-top: $--bor-tl $--bor-sm;
+
+  .start {
+    float: left;
+    margin-top: 3px;
+    margin-left: 10px;
+    padding: 2px 15px;
+    border-top: $--bor-tl $--bor-sm;
+    border-left: $--bor-tl $--bor-sm;
+    border-right: $--bor-rb $--bor-sm;
+    border-bottom: $--bor-rb $--bor-sm;
+    font-weight: bold;
+    &::before {
+      content: "";
+      float: left;
+      display: block;
+      background: url("./img/windows.png") center no-repeat;
+      background-size: $--img-wh;
+      width: $--img-wh;
+      height: $--img-wh;
+      margin-left: -10px;
+      margin-right: 5px;
+      margin-top: -2px;
+    }
+
+    span {
+      display: flex;
+      margin-top: 2px;
+    }
+  }
+
+  #time {
+    float: right;
+    margin-top: 2px;
+    margin-right: 10px;
+    padding: 5px 15px 2px;
+    border-top: $--bor-tl $--bor-sm;
+    border-left: $--bor-tl $--bor-sm;
+    border-right: $--bor-rb $--bor-sm;
+    border-bottom: $--bor-rb $--bor-sm;
+    &::before {
+      content: "";
+      float: left;
+      display: block;
+      background: url("./img/speaker.png") center no-repeat;
+      background-size: $--img-wh;
+      width: $--img-wh;
+      height: $--img-wh;
+      margin-left: -10px;
+      margin-right: 10px;
+      margin-top: -2px;
+    }
+  }
+
+  .program {
+    float: left;
+    border-top: $--bor-rb $--bor-sm;
+    border-left: $--bor-rb $--bor-sm;
+    border-right: $--bor-tl $--bor-sm;
+    border-bottom: $--bor-tl $--bor-sm;
+    color: #000;
+    margin-top: 2px;
+    margin-left: 5px;
+    background: #fff;
+    width: 200px;
+    height: 30px;
+
+    img {
+      display: block;
+      float: left;
+      width: $--img-wh;
+      margin-top: 2px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    span {
+      display: block;
+      margin-top: 5px;
+    }
+  }
+}

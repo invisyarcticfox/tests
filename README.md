@@ -1,5 +1,5 @@
 # tests
 
-[url parameter](./paramtest/index.html)
-<br>
-[dark/light mode toggle](./darkmodetest/index.html)
+["carrd"](https://shamshitty.xyz/tests/carrd)
+[dark/light mode toggle](https://shamshitty.xyz/tests/darkmodetest)
+[url parameters](https://shamshitty.xyz/tests/paramtest)
