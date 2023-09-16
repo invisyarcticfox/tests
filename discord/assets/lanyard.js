@@ -29,7 +29,7 @@ async function setAvatar() {
             }
         }
     } = await fetchResponse(USERID);
-    const fullUrl = `https://cdn.discordapp.com/avatars/${USERID}/${avatar}`;
+    const fullUrl = `https://cdn.discordapp.com/avatars/${USERID}/${avatar}?size=256`;
     pfp.src = fullUrl;
     console.log("got user id!", `(${avatar})`)
 }

@@ -1,1 +1,9 @@
-/*# sourceMappingURL=custom.css.map */
+body {
+  font-family: Discordinated;
+}
+
+@font-face {
+  font-family: "Discordinated";
+  src: url("https://kckarnige.is-a.dev/femboi_owo/DISCORDINATED.woff");
+  /* https://github.com/kckarnige/kckarnige.github.io/tree/main/femboi_owo */
+}

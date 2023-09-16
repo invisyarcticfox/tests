@@ -55,14 +55,14 @@ table tr th,
 table tr td {
   text-align: left;
 }
-table tr th:not(:first-child),
-table tr td:not(:first-child) {
+table tr th:not(:nth-child(1), :nth-child(2)),
+table tr td:not(:nth-child(1), :nth-child(2)) {
   text-align: right;
 }
 table tr:hover {
   outline: 1px solid #75747a;
 }
-table td:nth-child(2)::after {
+table td:nth-child(3)::after {
   content: "KB";
 }
 table td a:hover {
