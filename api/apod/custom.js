@@ -4,6 +4,7 @@ const APIURL = `https://api.nasa.gov/planetary/apod?api_key=`
 const apodimg = document.getElementById('apodimg')
 const datetxt = document.getElementById('date')
 const copytxt = document.getElementById('copy')
+const explanationtxt = document.getElementById('explanation')
 
 async function fetchAPOD() {
   try {
@@ -18,13 +19,15 @@ async function setAPOD() {
   const {
     url,
     date,
-    copyright
+    copyright,
+    explanation
     // there are other json trees(?) available but i just wanted these to test
   } = await fetchAPOD()
   console.log(setAPOD)
   apodimg.src = `${url}`
   datetxt.innerHTML = `${date}`
   copytxt.innerHTML = `${copyright}`
+  explanationtxt.innerHTML = `${explanation}`
 }
 
 function invoke() {
