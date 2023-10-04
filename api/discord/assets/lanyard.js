@@ -1,215 +1,221 @@
-const API_URL = 'https://api.lanyard.rest/v1';
-const USERID = '470193291053498369';
-const pfp = document.getElementById('pfp');
-// const status = document.getElementById('status');
-// const statusDot = document.getElementById('status-dot');
-// const status2 = document.getElementById('status2');
-const username = document.getElementById('username');
-const useridprofile = document.getElementById('userid');
-// const bigImage = document.getElementById('activity-big-image');
-// const smallImage = document.getElementById('activity-small-image');
-// const name = document.getElementById('activity-name');
-// const state = document.getElementById('activity-state');
-// const details = document.getElementById('activity-detail');
+const API_URL = 'https://api.lanyard.rest/v1'
+const USERID = '470193291053498369'
+const pfp = document.getElementById('pfp')
+const statustxt = document.getElementById('status')
+const statusDot = document.getElementById('status-dot')
+const statusimg = document.getElementById('statusimg')
+const spotifyicon = document.querySelector('img.spotify')
+// const status2 = document.getElementById('status2')
+const usernametxt = document.getElementById('username')
+const useridtxt = document.getElementById('userid')
+const globnametxt = document.getElementById('globalname')
+// const bigImage = document.getElementById('activity-big-image')
+// const smallImage = document.getElementById('activity-small-image')
+// const name = document.getElementById('activity-name')
+// const state = document.getElementById('activity-state')
+// const details = document.getElementById('activity-detail')
 
 
 async function fetchResponse(userId) {
     try {
-        const res = await fetch(`${API_URL}/users/${userId}`);
-        return await res.json();
+        const res = await fetch(`${API_URL}/users/${userId}`)
+        return await res.json()
     } catch (err) {
-        console.error(err);
+        console.error(err)
     }
 }
 async function setAvatar() {
     const {
         data: {
             discord_user: {
-                avatar
+                avatar,
             }
         }
-    } = await fetchResponse(USERID);
-    const fullUrl = `https://cdn.discordapp.com/avatars/${USERID}/${avatar}?size=256`;
-    pfp.src = fullUrl;
-    console.log("got user id!", `(${avatar})`)
+    } = await fetchResponse(USERID)
+    const fullUrl = `https://cdn.discordapp.com/avatars/${USERID}/${avatar}?size=512`
+    pfp.src = fullUrl
 }
 
-// async function setAvatarFrame() {
-//     const {
-//         data: {
-//             discord_status
-//         }
-//     } = await fetchResponse(USERID);
-//     switch (discord_status) {
-//     case 'online':
-//         statusDot.style.background =
-//             '#3ba45d';
-//         statusDot.title = 'Online';
-//         status2.innerHTML = 'online';
-//         status2.style.cssText = 'color: #3ba45d; opacity: 1;';
-//         break;
-//     case 'dnd':
-//         statusDot.style.background =
-//             '#ed4245';
-//         statusDot.title = 'Do not disturb';
-//         status2.innerHTML = 'dnd';
-//         status2.style.cssText = 'color: #ed4245; opacity: 1;';
-//         break;
-//     case 'idle':
-//         statusDot.style.background =
-//             '#faa81a';
-//         statusDot.title = 'Idle';
-//         status2.innerHTML = "idle";
-//         status2.style.cssText = 'color: #faa81a; opacity: 1;';
-//         break;
-//     case 'offline':
-//         statusDot.style.background =
-//             '#747e8c';
-//         statusDot.title = 'Offline';
-//         status2.innerHTML = "offline <br> might be in eternal sleep";
-//         status2.style.cssText = 'color: unset; opacity: 0.5;';
-//         break;
-//     }
-// }
+async function setStatus() {
+    const {
+        data: {
+            discord_status
+        }
+    } = await fetchResponse(USERID)
+    switch (discord_status) {
+        case 'online':
+            statusDot.style.background = '#3ba45d'
+            statusDot.title = 'Online'
+            // status2.innerHTML = 'online'
+            // status2.style.cssText = 'color: #3ba45d opacity: 1'
+            break
+        case 'dnd':
+            statusDot.style.background = '#ed4245'
+            statusDot.title = 'Do not disturb'
+            // status2.innerHTML = 'dnd'
+            // status2.style.cssText = 'color: #ed4245 opacity: 1'
+            break
+        case 'idle':
+            statusDot.style.background = '#faa81a'
+            statusDot.title = 'Idle'
+            // status2.innerHTML = "idle"
+            // status2.style.cssText = 'color: #faa81a opacity: 1'
+            break
+        case 'offline':
+            statusDot.style.background = '#747e8c'
+            statusDot.title = 'Offline'
+            // status2.innerHTML = "offline"
+            // status2.style.cssText = 'color: unset opacity: 0.5'
+            break
+    }
+}
 
 async function setUsername() {
     const {
         data: {
             discord_user: {
-                username: user,
+                username,
+                global_name
             }
         }
-    } = await fetchResponse(USERID);
-    username.innerHTML = `${user}`;
-    useridprofile.innerHTML = `${USERID}`;
-    console.log("got user id!", `(${user})`)
-    console.log("got user id!", `(${USERID})`)
+    } = await fetchResponse(USERID)
+    globnametxt.innerHTML = global_name
+    usernametxt.innerHTML = `@` + username
+    useridtxt.innerHTML = USERID
 
 }
-// async function setStatus() {
-//     const {
-//         data: {
-//             discord_status,
-//             activities
-//         }
-//     } = await fetchResponse(USERID);
-//     if (discord_status == 'offline')
-//         return;
-//     const {
-//         state
-//     } = activities.find(m => m.type == 4);
-//     if (!state) {
-//         return;
-//     }
-//     status.innerHTML = `Status: "${state}"`;
-// }
+
+async function setCustomStatus() {
+    const {
+        data: {
+            discord_status,
+            activities
+        }
+    } = await fetchResponse(USERID)
+    if (discord_status == 'offline')
+        return
+    const {
+        state,
+        emoji: {
+            id,
+            name
+        }
+    } = activities.find(m => m.type == 4)
+    if (!state, !id, !name) {
+        return
+    }
+    if (!state != false) {
+        statustxt.remove()
+    }
+    const stateNode = document.createTextNode(state)
+    statustxt.appendChild(stateNode)
+    statusimg.src = `https://cdn.discordapp.com/emojis/${id}`
+    statusimg.title = `:${name}:`
+}
+
+
 // async function setActivityBigImage() {
 //     const {
 //         data: {
 //             activities,
 //             spotify
 //         }
-//     } = await fetchResponse(USERID);
+//     } = await fetchResponse(USERID)
 // 	console.log(await fetchResponse(USERID))
-//     const mostRecent = activities.filter(m => m.type !== 4).shift();
+//     const mostRecent = activities.filter(m => m.type !== 4).shift()
 //     if (!mostRecent?.assets?.large_image) {
-//         bigImage.style.display = 'none';
-//         return;
+//         bigImage.style.display = 'none'
+//         return
 //     }
 //     if (mostRecent.assets.large_image.includes("spotify")) {
-//         bigImage.style.display = 'block';
-//         bigImage.src = spotify.album_art_url;
-// 		bigImage.title =  spotify.album;
+//         bigImage.style.display = 'block'
+//         bigImage.src = spotify.album_art_url
+// 		bigImage.title =  spotify.album
 // 
-//         return;
+//         return
 //     }
-//     const imageLink = mostRecent.assets.large_image.includes("external") ? `https://media.discordapp.net/external/${mostRecent.assets.large_image.split("mp:external/")[1]}` :  `https://cdn.discordapp.com/app-assets/${mostRecent.application_id}/${mostRecent.assets.large_image}.png`;
-//     bigImage.style.display = 'block';
-//     bigImage.src = imageLink;
-// 	bigImage.title = mostRecent.assets.large_text;
+//     const imageLink = mostRecent.assets.large_image.includes("external") ? `https://media.discordapp.net/external/${mostRecent.assets.large_image.split("mp:external/")[1]}` :  `https://cdn.discordapp.com/app-assets/${mostRecent.application_id}/${mostRecent.assets.large_image}.png`
+//     bigImage.style.display = 'block'
+//     bigImage.src = imageLink
+// 	bigImage.title = mostRecent.assets.large_text
 // }
 // async function setActivitySmallImage() {
 //     const {
 //         data: {
 //             activities
 //         }
-//     } = await fetchResponse(USERID);
-//     const mostRecent = activities.filter(m => m.type !== 4).shift();
+//     } = await fetchResponse(USERID)
+//     const mostRecent = activities.filter(m => m.type !== 4).shift()
 //     if (!mostRecent?.assets?.small_image || mostRecent.assets.large_image.includes("spotify")) {
-//         smallImage.style.display = 'none';
-//         return;
+//         smallImage.style.display = 'none'
+//         return
 //     }
-//     const imageLink = mostRecent.assets.small_image.includes("external") ? `https://media.discordapp.net/external/${mostRecent.assets.small_image.split("mp:external/")[1]}` : `https://cdn.discordapp.com/app-assets/${mostRecent.application_id}/${mostRecent.assets.small_image}.png`;
-//     smallImage.style.display = 'block';
-//     smallImage.src = imageLink;
-// 	smallImage.title = mostRecent.assets.small_text;
+//     const imageLink = mostRecent.assets.small_image.includes("external") ? `https://media.discordapp.net/external/${mostRecent.assets.small_image.split("mp:external/")[1]}` : `https://cdn.discordapp.com/app-assets/${mostRecent.application_id}/${mostRecent.assets.small_image}.png`
+//     smallImage.style.display = 'block'
+//     smallImage.src = imageLink
+// 	smallImage.title = mostRecent.assets.small_text
 // }
 // async function setActivityName() {
 //     const {
 //         data: {
 //             activities
 //         }
-//     } = await fetchResponse(USERID);
-//     const mostRecent = activities.filter(m => m.type !== 4).shift();
+//     } = await fetchResponse(USERID)
+//     const mostRecent = activities.filter(m => m.type !== 4).shift()
 //     if (!mostRecent?.name) {
-//         name.innerHTML = 'doing yo moma';
-//         return;
+//         name.innerHTML = 'doing yo moma'
+//         return
 //     }
-//     name.style.display = 'block';
-//     name.innerHTML = mostRecent.name;
+//     name.style.display = 'block'
+//     name.innerHTML = mostRecent.name
 // }
 // async function setActivityState() {
-//     const response = await fetchResponse(USERID);
-//     const activities = response.data.activities.filter(m => m.type !== 4);
+//     const response = await fetchResponse(USERID)
+//     const activities = response.data.activities.filter(m => m.type !== 4)
 //     if (!activities.length) {
-//         state.style.display = 'none';
-//         return;
+//         state.style.display = 'none'
+//         return
 //     }
-//     const mostRecent = activities.shift();
+//     const mostRecent = activities.shift()
 //     if (!mostRecent.state) {
-//         state.style.display = 'none';
-//         return;
+//         state.style.display = 'none'
+//         return
 //     }
-//     state.style.display = 'block';
-//     state.innerHTML = mostRecent.state;
+//     state.style.display = 'block'
+//     state.innerHTML = mostRecent.state
 // }
 // async function setActivityDetails() {
-//     const response = await fetchResponse(USERID);
+//     const response = await fetchResponse(USERID)
 // 
-//     const activities = response.data.activities.filter(m => m.type !== 4);
+//     const activities = response.data.activities.filter(m => m.type !== 4)
 //     if (!activities.length) {
-//         details.style.display = 'none';
-//         return;
+//         details.style.display = 'none'
+//         return
 //     }
-//     const mostRecent = activities.shift();
+//     const mostRecent = activities.shift()
 //     if (!mostRecent.details) {
-//         details.style.display = 'none';
-//         return;
+//         details.style.display = 'none'
+//         return
 //     }
-//     details.style.display = 'block';
-//     details.innerHTML = mostRecent.details;
+//     details.style.display = 'block'
+//     details.innerHTML = mostRecent.details
 // }
-// 
+
 // function presenceInvoke() {
-//     setActivityBigImage();
-//     setActivitySmallImage();
-//     setActivityName();
-//     setActivityState();
-//     setActivityDetails();
-// }
-// 
-// function statusInvoke() {
-//     setStatus();
-//     setAvatarFrame();
+//     setActivityBigImage()
+//     setActivitySmallImage()
+//     setActivityName()
+//     setActivityState()
+//     setActivityDetails()
 // }
 
 function invoke() {
     setInterval(() => {
-        // presenceInvoke();
-        // statusInvoke();
-    }, 1000);
-    setAvatar();
-    setUsername();
+        // presenceInvoke()
+        setAvatar()
+    }, 1000)
+    setStatus()
+    setUsername()
+    setCustomStatus()
 }
-
-invoke();
+invoke()

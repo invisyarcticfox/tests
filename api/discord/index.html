@@ -9,12 +9,36 @@
     <link rel="stylesheet" href="./assets/custom.css">
 </head>
 <body>
+    <div class="imgnstat">
+        <img id="pfp" src="https://ia803204.us.archive.org/4/items/discordprofilepictures/discordblue.png">
+        <div id="status-dot"></div>
+        <div id="tooltip"></div>
+    </div>
+    <div class="otherstuff">
+        <div class="statustxt">status:</div>
+        <img src="" id="statusimg">
+        <div class="txt" id="status"></div>
+        <div class="txt" id="globalname"></div>
+        <div class="txt" id="username"></div>
+        <div class="txt" id="userid" title="click to copy!"></div>
+    </div>
 
-    <img id="pfp" src="">
-    <div id="username"></div>
-    <div id="userid"></div>
-
-    <!-- onchange="document.getElementById('pfp').width = this.value" -->
     <script src="./assets/lanyard.js"></script>
+
+    <script>
+        const uid = document.querySelector("div#userid");
+
+        uid.onclick = function () {
+            document.execCommand("copy");
+        }
+
+        uid.addEventListener("copy", function (event) {
+            event.preventDefault();
+            if (event.clipboardData) {
+                event.clipboardData.setData("text/plain", uid.textContent);
+                console.log(event.clipboardData.getData("text"))
+            }
+        });
+    </script>
 </body>
 </html>
