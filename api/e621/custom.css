@@ -1,0 +1,47 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 20px;
+}
+
+
+.pfpurl {
+  display: block;
+  width: 256px;
+  height: 256px;
+}
+.pfpurl img {
+  width: 100%;
+  height: 100%;
+}
+
+#username {
+  margin-bottom: 0;
+}
+#id {
+  margin-top: 0;
+}
+
+#favcount {
+  margin-bottom: 0;
+}
+#commcount {
+  margin: 0;
+}
+#memlevel {
+  margin-top: 0;
+}
+
+#commcount::before {
+  content: "comments made: ";
+}
+#favcount::before {
+  content: "total favourites: ";
+}
+#memlevel::before {
+  content: "user level: ";
+}
+
+.txt img {
+  height: 18px;
+  vertical-align: middle;
+}

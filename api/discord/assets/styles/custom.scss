@@ -7,14 +7,19 @@ body {
   /* https://github.com/kckarnige/kckarnige.github.io/tree/main/femboi_owo */
 }
 
-.imgnstat {
+#back {
+  font-family: monospace;
+}
+
+
+.pfpstuff {
   $img-wh: 360px;
   $outline: #000 solid;
   $transition: all .5s ease;
   $sd-wh: 70px;
 
   display: block;
-  margin: 20px auto;
+  margin: 30px auto 20px;
   width: $img-wh;
   height: $img-wh;
 
@@ -25,15 +30,34 @@ body {
     border-radius: 50%;
     outline: 10px $outline;
   }
-  #status-dot {
+  #statusdot,
+  .spotifyicon {
     background: #000;
     width: $sd-wh;
     height: $sd-wh;
     position: relative;
-    right: calc(($sd-wh * -4));
-    bottom: calc($sd-wh + ($sd-wh / 10));
     border-radius: 50%;
+  }
+  #statusdot {
+    left: calc(($sd-wh * 4));
+    bottom: calc($sd-wh + 80px);
     outline: 7px $outline;
+  }
+  .spotifyicon {
+    left: calc(($sd-wh * 4));
+    bottom: calc($sd-wh * 4);
+    animation: spotifyIcon 5s ease-in-out forwards infinite;
+    opacity: 0;
+  }
+  /* i hate this so much but i have to do it */
+}
+
+@keyframes spotifyIcon {
+  0%, 100% {
+    transform: translateY(-85px);
+  }
+  50% {
+    transform: translateY(-70px);
   }
 }
 
@@ -50,24 +74,26 @@ body {
   }
   /* ???? */
 
-  #statusimg,
-  #status,
-  .statustxt {
-    display: inline;
-  }
-  #statusimg {
-    margin-right: 5px;
-    vertical-align: top;
-    height: 30px;
-  }
-
   #userid {
+    $transition: .2s ease;
     cursor: pointer;
     padding: 5px;
-    transition: background .2s ease;
+    transform: translateY(0);
+    transition: background $transition, transform .05s linear;
     &:hover {
       background: rgba($color: #fff, $alpha: .2);
-      transition: background .2s ease;
+    }
+    &:active {
+      transform: translateY(5px);
     }
   }
+}
+
+
+div.bruh {
+  font-family: monospace;
+  text-align: center;
+  margin-top: 25px;
+  font-style: italic;
+  font-size: 17px;
 }
