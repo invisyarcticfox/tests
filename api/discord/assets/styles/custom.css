@@ -1,5 +1,5 @@
 body {
-  font-family: Discordinated;
+  font-family: monospace;
 }
 
 @font-face {
@@ -7,15 +7,11 @@ body {
   src: url("https://kckarnige.is-a.dev/femboi_owo/DISCORDINATED.woff");
   /* https://github.com/kckarnige/kckarnige.github.io/tree/main/femboi_owo */
 }
-#back {
-  font-family: monospace;
-}
-
 .pfpstuff {
   display: block;
-  margin: 30px auto 20px;
-  width: 360px;
-  height: 360px;
+  margin: 40px auto 20px;
+  width: 340px;
+  height: 340px;
   /* i hate this so much but i have to do it */
 }
 .pfpstuff #pfp {
@@ -25,35 +21,45 @@ body {
   border-radius: 50%;
   outline: 10px #000 solid;
 }
-.pfpstuff #statusdot,
-.pfpstuff .spotifyicon {
+.pfpstuff #statusdot {
   background: #000;
   width: 70px;
   height: 70px;
   position: relative;
   border-radius: 50%;
-}
-.pfpstuff #statusdot {
-  left: 280px;
-  bottom: 150px;
+  left: 260px;
+  bottom: 80px;
   outline: 7px #000 solid;
 }
-.pfpstuff .spotifyicon {
-  left: 280px;
-  bottom: 280px;
-  animation: spotifyIcon 5s ease-in-out forwards infinite;
-  opacity: 0;
+.pfpstuff #statusdot:hover .tooltiptext {
+  visibility: visible;
+}
+.pfpstuff #statusdot .tooltiptext {
+  padding: 5px 15px;
+  top: 115%;
+  left: 85%;
 }
 
-@keyframes spotifyIcon {
-  0%, 100% {
-    transform: translateY(-85px);
-  }
-  50% {
-    transform: translateY(-70px);
-  }
+.tooltiptext {
+  visibility: hidden;
+  background-color: rgba(85, 85, 85, 0.6666666667);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 17px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 110%;
+  left: 50%;
+  margin-left: -60px;
 }
+
 .otherstuff {
+  font-family: Discordinated;
   display: block;
   margin: 0 auto;
   width: 25%;
@@ -75,14 +81,85 @@ body {
 .otherstuff #userid:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+.otherstuff #userid:hover .tooltiptext {
+  visibility: visible;
+}
 .otherstuff #userid:active {
   transform: translateY(5px);
 }
+.otherstuff #userid .tooltiptext {
+  padding: 5px;
+}
+.otherstuff #status img {
+  margin-right: 5px;
+}
 
-div.bruh {
-  font-family: monospace;
+.spotifycont {
+  display: none;
+  margin: 20px auto 0;
+  background: rgba(30, 215, 96, 0.6666666667);
+  padding: 10px;
+  width: 30%;
+  height: 240px;
+  border-radius: 25px;
+}
+.spotifycont .imgcont {
+  float: left;
+  display: block;
+  width: 240px;
+  height: 240px;
+  max-width: 240px;
+  max-height: 240px;
+}
+.spotifycont .imgcont img {
+  height: 100%;
+  border-radius: 25px;
+}
+.spotifycont .spotifylink {
+  float: right;
+  position: relative;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+.spotifycont .spotifylink:hover .tooltiptext {
+  visibility: visible;
+}
+.spotifycont .spotifylink .tooltiptext {
+  width: 150px;
+  padding: 5px;
+  top: -110%;
+  left: -10%;
+}
+.spotifycont .spotifylink img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  outline: 2px #000 solid;
+}
+.spotifycont .songinfo {
+  width: 240px;
+  float: right;
   text-align: center;
-  margin-top: 25px;
-  font-style: italic;
+  display: block;
   font-size: 17px;
+  padding-right: 10px;
+  position: relative;
+  top: 33%;
+  left: -22%;
+  transform: translate(50%, -50%);
+}
+
+footer {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.3333333333);
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  padding: 10px 0;
 }/*# sourceMappingURL=custom.css.map */

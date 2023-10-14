@@ -3,13 +3,24 @@ const DISCCDN = 'https://cdn.discordapp.com'
 const USERID = '470193291053498369'
 const pfp = document.getElementById('pfp')
 const statdot = document.getElementById('statusdot')
+const tooltipstatus = document.querySelector('.status.tooltiptext')
+
+const customstatus = document.getElementById('status')
+const statusimg = document.querySelector('.statusimg')
+const statustxt = document.querySelector('#status span')
 
 const globnametxt = document.getElementById('globalname')
 const usernametxt = document.getElementById('username')
-const useridtxt = document.getElementById('userid')
+const useridtxt = document.querySelector('.userid')
 
+const spotifyinfocont = document.querySelector('.spotifycont')
 const spotifyicon = document.querySelector('.spotifyicon')
-const spotifybar = document.querySelector('.spotifybar')
+const spotifylink = document.querySelector('.spotifylink')
+const spotifytt = document.querySelector('.spotifylink .tooltiptext')
+const albumart = document.getElementById('albumart')
+const songtitle = document.getElementById('songtitle')
+const songartist = document.getElementById('songartist')
+const songalbum = document.getElementById('songalbum')
 
 async function fetchResponse(USERID) {
   try {
@@ -36,7 +47,7 @@ async function setAvatar() {
 async function setStatus() {
   const {
     data: {
-      spotify,
+      activities,
       discord_status,
       listening_to_spotify
     }
@@ -44,43 +55,31 @@ async function setStatus() {
   switch (discord_status) {
     case 'online':
       statdot.style.background = '#3ba45d'
-      statdot.title = 'Onlie'
+      tooltipstatus.innerHTML = 'Online'
       break
     case 'dnd':
       statdot.style.background = '#ed4245'
-      statdot.title = 'Do Not Disturb'
+      tooltipstatus.innerHTML = 'Do Not Disturb'
       break
     case 'idle':
       statdot.style.background = '#faa81a'
-      statdot.title = 'Idle'
+      tooltipstatus.innerHTML = 'Idle'
       break
     case 'offline':
       statdot.style.background = '#747e8c'
-      statdot.title = 'Offline'
+      tooltipstatus.innerHTML = 'Offline'
       break
   }
 
   if(listening_to_spotify == true) {
-    spotifyicon.style.opacity = "1"
+    spotifyinfocont.style.display = "block"
   } else {
-    spotifyicon.style.opacity = "0"
-  }
-  
-  if(spotify === null) {
-    spotifyicon.title = ""
+    spotifyinfocont.style.display = ""
     return
-  } else {
-    const {
-      data: {
-        spotify: {
-          artist,
-          song
-        }
-      }
-    } = await fetchResponse(USERID)
-    spotifyicon.title = `I'm listening to "${song}" by ${artist}!`
   }
 }
+
+// ill do custom status later
 
 async function setProfileInfo() {
   const {
@@ -92,12 +91,12 @@ async function setProfileInfo() {
       }
     }
   } = await fetchResponse(USERID)
-  globnametxt.innerHTML = global_name
-  usernametxt.innerHTML = `@${username}`
-  useridtxt.innerHTML = id
+  globnametxt.insertAdjacentHTML('beforeend', global_name)
+  usernametxt.insertAdjacentHTML('beforeend', `@${username}`)
+  useridtxt.insertAdjacentHTML('afterbegin', id)
 }
 
-async function setSpotify() {
+async function setSpotifyInfo() {
   const {
     data: {
       spotify
@@ -110,6 +109,7 @@ async function setSpotify() {
     const {
       data: {
         spotify: {
+          track_id,
           album,
           album_art_url,
           artist,
@@ -117,6 +117,20 @@ async function setSpotify() {
         }
       }
     } = await fetchResponse(USERID)
+    albumart.src = album_art_url
+    songtitle.innerHTML = `<b>${song}</b>`
+    songartist.innerHTML = `by ${artist}`
+    songalbum.innerHTML = `on ${album}`
+    spotifylink.href = `spotify://track/${track_id}`
+    spotifylink.style.opacity = "1"
+    spotifylink.style.cursor = ""
+
+    if(album_art_url === null, track_id === null) {
+      albumart.src = './assets/img/spotify.png'
+      spotifylink.style.opacity = ""
+      spotifylink.style.cursor = "default"
+      spotifylink.removeAttribute("href")
+    }
   }
 }
 
@@ -125,7 +139,8 @@ function invoke() {
   console.log(APIRUL+USERID)
   setInterval(() => {
     setStatus()
-    setSpotify()
+    // setCustomStatus()
+    setSpotifyInfo()
   }, 1000)
   setAvatar()
   setProfileInfo()

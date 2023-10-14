@@ -14,31 +14,49 @@
     </div>
 
     <div class="pfpstuff">
-        <img id="pfp" src="./assets/discord.png">
-        <img class="spotifyicon" src="./assets/spotify.svg">
-        <div id="statusdot"></div>
+        <img id="pfp" src="./assets/img/discord.png">
+        <div id="statusdot">
+            <span class="status tooltiptext"></span>
+        </div>
     </div>
     <div class="otherstuff">
-        <div class="txt" id="globalname"></div>
-        <div class="txt" id="username"></div>
-        <div class="txt" id="userid" title="click to copy!"></div>
+        <div id="status"><img class="statusimg" src="" alt=""><span class="statustxt"></span></div>
+        <div id="globalname"></div>
+        <div id="username"></div>
+        <div id="userid" onclick="copyUID()">
+            <span class="userid"></span>
+            <span class="tooltiptext">click to copy!</span>
+        </div>
     </div>
+
+    <div class="spotifycont">
+        <a class="spotifylink" href="" target="_blank" rel="noopener noreferrer">
+            <img class="spotifyicon" src="./assets/img/spotify.svg">
+            <span class="tooltiptext">open in spotify!</span>
+        </a>
+        <div class="imgcont">
+            <img id="albumart" src="" alt="">
+        </div>
+        <div class="songinfo">
+            <div id="songtitle"></div>
+            <div id="songartist"></div>
+            <div id="songalbum"></div>
+        </div>
+    </div>
+
+    <footer>this site uses the <a href="https://github.com/cnrad/lanyard-profile-readme" target="_blank" rel="noopener noreferrer">lanyard api</a>!</footer>
 
     <script src="./assets/lanyard.js"></script>
     <script>
-        const uid = document.querySelector("div#userid");
-
-        uid.onclick = function () {
-            document.execCommand("copy");
+        function copyUID(userid) {
+            let el = document.querySelector('.userid')
+            let eltxt = el.textContent
+            copyText(eltxt)
         }
-
-        uid.addEventListener("copy", function (event) {
-            event.preventDefault();
-            if (event.clipboardData) {
-                event.clipboardData.setData("text/plain", uid.textContent);
-                console.log(event.clipboardData.getData("text"))
-            }
-        });
+        function copyText(text) {
+            navigator.clipboard.writeText(text)
+            console.log(`copied userid: ${text}`)
+        }
     </script>
 </body>
 </html>

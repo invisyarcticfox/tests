@@ -1,5 +1,5 @@
 body {
-  font-family: Discordinated;
+  font-family: monospace;
 }
 @font-face {
   font-family: "Discordinated";
@@ -7,21 +7,16 @@ body {
   /* https://github.com/kckarnige/kckarnige.github.io/tree/main/femboi_owo */
 }
 
-#back {
-  font-family: monospace;
-}
-
 
 .pfpstuff {
-  $img-wh: 360px;
   $outline: #000 solid;
   $transition: all .5s ease;
   $sd-wh: 70px;
 
   display: block;
-  margin: 30px auto 20px;
-  width: $img-wh;
-  height: $img-wh;
+  margin: 40px auto 20px;
+  width: 340px;
+  height: 340px;
 
   #pfp {
     width: 100%;
@@ -30,37 +25,47 @@ body {
     border-radius: 50%;
     outline: 10px $outline;
   }
-  #statusdot,
-  .spotifyicon {
+  #statusdot {
     background: #000;
     width: $sd-wh;
     height: $sd-wh;
     position: relative;
     border-radius: 50%;
-  }
-  #statusdot {
-    left: calc(($sd-wh * 4));
-    bottom: calc($sd-wh + 80px);
+    left: calc(($sd-wh * 4 - 20px));
+    bottom: calc($sd-wh + 10px);
     outline: 7px $outline;
-  }
-  .spotifyicon {
-    left: calc(($sd-wh * 4));
-    bottom: calc($sd-wh * 4);
-    animation: spotifyIcon 5s ease-in-out forwards infinite;
-    opacity: 0;
+    &:hover .tooltiptext {
+      visibility: visible;
+    }
+    .tooltiptext {
+      padding: 5px 15px;
+      top: 115%;
+      left: 85%;
+    }
   }
   /* i hate this so much but i have to do it */
 }
-@keyframes spotifyIcon {
-  0%, 100% {
-    transform: translateY(-85px);
-  }
-  50% {
-    transform: translateY(-70px);
-  }
+
+.tooltiptext {
+  visibility: hidden;
+  background-color: #555a;
+  backdrop-filter: blur(4px);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 17px;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 110%;
+  left: 50%;
+  margin-left: -60px;
 }
 
 .otherstuff {
+  font-family: Discordinated;
   display: block;
   margin: 0 auto;
   width: 25%;
@@ -81,18 +86,90 @@ body {
     transition: background $transition, transform .05s linear;
     &:hover {
       background: rgba($color: #fff, $alpha: .2);
+      .tooltiptext {visibility: visible;}
     }
     &:active {
       transform: translateY(5px);
     }
+    .tooltiptext {
+      padding: 5px;
+    }
+  }
+
+  #status img {
+    margin-right: 5px;
   }
 }
 
+.spotifycont {
+  $wnh: 240px;
+  display: none;
+  margin: 20px auto 0;
+  background: #1ed760aa;
+  padding: 10px;
+  width: 30%;
+  height: calc($wnh);
+  border-radius: 25px;
 
-div.bruh {
-  font-family: monospace;
+  .imgcont {
+    float: left;
+    display: block;
+    width: $wnh;
+    height: $wnh;
+    max-width: $wnh;
+    max-height: $wnh;
+    img {
+      height: 100%;
+      border-radius: 25px;
+    }
+  }
+  .spotifylink {
+    float: right;
+    position: relative;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    &:hover .tooltiptext {
+      visibility: visible;
+    }
+    .tooltiptext {
+      width: 150px;
+      padding: 5px;
+      top: -110%;
+      left: -10%;
+    }
+
+    img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      outline: 2px #000 solid;
+    }
+  }
+  .songinfo {
+    width: $wnh;
+    float: right;
+    text-align: center;
+    display: block;
+    font-size: 17px;
+    padding-right: 10px;
+    position: relative;
+    top: 33%;
+    left: -22%;
+    transform: translate(50%, -50%);
+  }
+}
+
+footer {
+  position: fixed;
+  background: #0005;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
   text-align: center;
-  margin-top: 25px;
-  font-style: italic;
   font-size: 17px;
+  padding: 10px 0;
 }
