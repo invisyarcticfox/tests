@@ -3,10 +3,13 @@ const DISCCDN = 'https://cdn.discordapp.com'
 const USERID = '470193291053498369'
 const pfp = document.getElementById('pfp')
 const statdot = document.getElementById('statusdot')
+
 const globnametxt = document.getElementById('globalname')
 const usernametxt = document.getElementById('username')
 const useridtxt = document.getElementById('userid')
+
 const spotifyicon = document.querySelector('.spotifyicon')
+const spotifybar = document.querySelector('.spotifybar')
 
 async function fetchResponse(USERID) {
   try {
@@ -16,6 +19,7 @@ async function fetchResponse(USERID) {
     console.error(err)
   }
 }
+
 
 async function setAvatar() {
   const {
@@ -32,6 +36,7 @@ async function setAvatar() {
 async function setStatus() {
   const {
     data: {
+      spotify,
       discord_status,
       listening_to_spotify
     }
@@ -54,11 +59,26 @@ async function setStatus() {
       statdot.title = 'Offline'
       break
   }
-  if (!listening_to_spotify != true) {
+
+  if(listening_to_spotify == true) {
     spotifyicon.style.opacity = "1"
-  }
-  if (!listening_to_spotify != false) {
+  } else {
     spotifyicon.style.opacity = "0"
+  }
+  
+  if(spotify === null) {
+    spotifyicon.title = ""
+    return
+  } else {
+    const {
+      data: {
+        spotify: {
+          artist,
+          song
+        }
+      }
+    } = await fetchResponse(USERID)
+    spotifyicon.title = `I'm listening to "${song}" by ${artist}!`
   }
 }
 
@@ -77,11 +97,35 @@ async function setProfileInfo() {
   useridtxt.innerHTML = id
 }
 
+async function setSpotify() {
+  const {
+    data: {
+      spotify
+    }
+  } = await fetchResponse(USERID)
+
+  if(spotify === null) {
+    return
+  } else {
+    const {
+      data: {
+        spotify: {
+          album,
+          album_art_url,
+          artist,
+          song
+        }
+      }
+    } = await fetchResponse(USERID)
+  }
+}
+
 
 function invoke() {
   console.log(APIRUL+USERID)
   setInterval(() => {
     setStatus()
+    setSpotify()
   }, 1000)
   setAvatar()
   setProfileInfo()
