@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="">
+    <link rel="canonical" href="">
+</head>
+<body>
+    <a href="./next.html">next</a>
+    <script>
+        const date = new Date().setDate(new Date().getDate() - 10)
+
+        localStorage.setItem('lsVal', JSON.stringify({
+            value: 'string',
+            expDate: date,
+        }))
+    </script>
+</body>
+</html>

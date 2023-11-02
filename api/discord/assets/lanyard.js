@@ -7,7 +7,7 @@ const tooltipstatus = document.querySelector('.status.tooltiptext')
 
 const customstatus = document.getElementById('status')
 const statusimg = document.querySelector('.statusimg')
-const statustxt = document.querySelector('#status span')
+const statustxt = document.querySelector('.statustxt')
 
 const globnametxt = document.getElementById('globalname')
 const usernametxt = document.getElementById('username')
@@ -79,7 +79,42 @@ async function setStatus() {
   }
 }
 
-// ill do custom status later
+// async function setCustomStatus() {
+//   const {
+//     data: {
+//       discord_status,
+//       activities
+//     }
+//   } = await fetchResponse(USERID)
+//   if(discord_status == 'offline') {
+//     customstatus.style.display = 'none'
+//     return
+//   }
+//   const {
+//     state,
+//     emoji
+//   } = activities.find(m => m.type == 4)
+//   
+//   if(state === undefined) {
+//     statustxt.style.display = 'none'
+//   } else {
+//     statustxt.innerHTML = state
+//   }
+// 
+//   if(emoji === undefined) {
+//     statusimg.style.display = 'none'
+//   } else {
+//     const {
+//       emoji: {
+//         id,
+//         name
+//       }
+//     } = activities.find(m => m.type == 4)
+//     statusimg.src = `https://cdn.discordapp.com/emojis/${id}`
+//     statusimg.title = `:${name}:`
+//   }
+// }
+// i did it before but i cant remember how
 
 async function setProfileInfo() {
   const {
@@ -121,7 +156,7 @@ async function setSpotifyInfo() {
     songtitle.innerHTML = `<b>${song}</b>`
     songartist.innerHTML = `by ${artist}`
     songalbum.innerHTML = `on ${album}`
-    spotifylink.href = `spotify://track/${track_id}`
+    spotifylink.href = `https://open.spotify.com/track/${track_id}`
     spotifylink.style.opacity = "1"
     spotifylink.style.cursor = ""
 

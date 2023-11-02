@@ -91,7 +91,11 @@ body {
   padding: 5px;
 }
 .otherstuff #status img {
+  position: relative;
   margin-right: 5px;
+  height: 29px;
+  vertical-align: middle;
+  top: -2px;
 }
 
 .spotifycont {

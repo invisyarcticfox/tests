@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="">
+    <link rel="canonical" href="">
+</head>
+<body>
+    <a href="./">index</a>
+    <script>
+        const item = localStorage.getItem('lsVal')
+
+        if(item) {
+            const res = (new Date()).getTime() > JSON.parse(item).expDate
+            
+            if(res) {
+                localStorage.removeItem('lsVal')
+            } else {
+                console.log(JSON.parse(item).value)
+            }
+        } else {
+            console.log('no localstorage item')
+        }
+    </script>
+</body>
+</html>
