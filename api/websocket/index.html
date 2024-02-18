@@ -4,8 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #141414;
+            color: #fff;
+            font-size: 20px;
+        }
+        .idle {
+            margin: 20px;
+            width: 75px;
+            height: 75px;
+            border-radius: 15px;
+            background: #747f8d;
+        }
+        .spotify,
+        .spotifyno {
+            margin: 20px;
+            margin-top: 0;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="idle"></div>
+    <div class="spotify">i am listening to spotify :)</div>
+    <div class="spotifyno">i am not listening to spotify :(</div>
+
+    <script src="./index.js"></script>
 </body>
 </html>
