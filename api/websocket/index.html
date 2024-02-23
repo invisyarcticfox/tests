@@ -3,36 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #141414;
-            color: #fff;
-            font-size: 20px;
-        }
-        .idle {
-            margin: 20px;
-            width: 75px;
-            height: 75px;
-            border-radius: 15px;
-            background: #747f8d;
-        }
-        .spotify,
-        .spotifyno {
-            margin: 20px;
-            margin-top: 0;
-            display: none;
-        }
-    </style>
+    <title>lanyard websocket</title>
+    <link rel="shortcut icon" href="https://shamshitty.xyz/assets/avatar.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://shamshitty.xyz/assets/master.css">
+    <link rel="stylesheet" href="./assets/styles/custom.css">
 </head>
 <body>
-    <div class="idle"></div>
-    <div class="spotify">i am listening to spotify :)</div>
-    <div class="spotifyno">i am not listening to spotify :(</div>
+    
+    <div id="cont">
+        <div id="status">
+            <div class="statind"></div>
+            <div class="stattxt"></div>
+        </div>
+        <div class="spotify"></div>
 
-    <script src="./index.js"></script>
+        <div id="spotifyinfo">
+            <img class="cover" src="./assets/img/spotify.png" alt="">
+            <div class="info">
+                <div class="title" title="title">title</div>
+                <div class="album" title="album">album</div>
+                <div class="artist" title="artist">artist</div>
+            </div>
+            <div class="localfile">(local file)</div>
+        </div>
+    </div>
+
+    <footer>this site uses the <a href="https://github.com/Phineas/lanyard" target="_blank" rel="noopener noreferrer">lanyard api</a>!</footer>
+    <script src="./assets/index.js"></script>
 </body>
 </html>

@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+#cont {
+  margin: 50px;
+}
+#cont .statind {
+  width: 100px;
+  height: 100px;
+  background: #80848e;
+  border-radius: 50%;
+}
+#cont .stattxt {
+  margin: 5px 0 25px;
+}
+#cont .spotify {
+  margin-bottom: 5px;
+}
+#cont #spotifyinfo {
+  background: #1ed760;
+  color: #000;
+  border-radius: 25px;
+  width: 276px;
+}
+#cont #spotifyinfo img {
+  width: 256px;
+  height: 256px;
+  border-radius: 25px;
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+}
+#cont #spotifyinfo .info {
+  text-align: center;
+  padding-bottom: 10px;
+}
+#cont .localfile {
+  text-align: center;
+  display: none;
+}
+
+footer {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.3333333333);
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  padding: 10px 0;
+}/*# sourceMappingURL=custom.css.map */
