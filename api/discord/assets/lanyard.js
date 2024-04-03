@@ -1,183 +1,127 @@
-const APIRUL = 'https://api.lanyard.rest/v1/users/'
-const DISCCDN = 'https://cdn.discordapp.com'
-const USERID = '470193291053498369'
-const pfp = document.getElementById('pfp')
-const statdot = document.getElementById('statusdot')
-const tooltipstatus = document.querySelector('.status.tooltiptext')
+const ws = new WebSocket('wss://api.lanyard.rest/socket');
+const discordurl = 'https://cdn.discordapp.com';
+const uid = '470193291053498369';
 
-const customstatus = document.getElementById('status')
+const pfp = document.querySelector('#pfp')
+
+const statusdot = document.querySelector('#statusdot')
+const statustt = document.querySelector('.status.tooltiptext')
 const statusimg = document.querySelector('.statusimg')
 const statustxt = document.querySelector('.statustxt')
 
-const globnametxt = document.getElementById('globalname')
-const usernametxt = document.getElementById('username')
-const useridtxt = document.querySelector('.userid')
+const globalname = document.querySelector('#globalname')
+const username = document.querySelector('#username')
+const userid = document.querySelector('.userid')
 
-const spotifyinfocont = document.querySelector('.spotifycont')
-const spotifyicon = document.querySelector('.spotifyicon')
+const spotifycont = document.querySelector('.spotifycont')
+const spotifycover = document.querySelector('#albumart')
 const spotifylink = document.querySelector('.spotifylink')
-const spotifytt = document.querySelector('.spotifylink .tooltiptext')
-const albumart = document.getElementById('albumart')
-const songtitle = document.getElementById('songtitle')
-const songartist = document.getElementById('songartist')
-const songalbum = document.getElementById('songalbum')
+const songtitle = document.querySelector('#songtitle b')
+const songartist = document.querySelector('#songartist i')
+const songalbum = document.querySelector('#songalbum i')
 
-async function fetchResponse(USERID) {
+const activitycont = document.querySelector('.activitycont')
+const activityimg = document.querySelector('#activityimg')
+const activitylink = document.querySelector('.twitchlink')
+const activityname = document.querySelector('#activityname b')
+const activityname2 = document.querySelector('#activityname2 i')
+const activityname3 = document.querySelector('#activityname3 i')
+
+// ===========================================================
+
+ws.onopen = console.log('WebSocket open!')
+ws.onmessage = ({data: msg}) => {
   try {
-    const res = await fetch(APIRUL+USERID)
-    return await res.json()
-  } catch (err) {
-    console.error(err)
-  }
-}
+    const data = JSON.parse(msg);
+    console.log(data)
+    switch (data.op) {
+      case 1:
+        ws.send(JSON.stringify({
+          op: 2,
+          d: {
+            subscribe_to_id: uid
+          }
+        }));
+        setInterval(() => {
+          ws.send(JSON.stringify({
+            op: 3
+          }))
+        }, data.d.heartbeat_interval);
+        break
+    }
 
+    // pfp and status and info
+    pfp.src = discordurl+'/avatars/'+uid+'/'+data.d.discord_user.avatar+'?size=512';
+    statustt.innerText = data.d.discord_status
+    switch (data.d.discord_status) {
+      case 'idle':
+        statusdot.style.backgroundColor = '#f0b232'
+        break;
+      case 'online':
+        statusdot.style.backgroundColor = '#23a55a'
+        break;
+      case 'dnd':
+        statusdot.style.backgroundColor = '#f23f43'
+        break;
+      case 'offline':
+        statusdot.style.backgroundColor = '#80848e'
+        break;
+    
+      default:
+        statusdot.style.backgroundColor = '#80848e'
+        break;
+    }
 
-async function setAvatar() {
-  const {
-    data: {
-      discord_user: {
-        avatar
+    const customstatus = data.d.activities.filter(m => m.type !== '4').shift()
+    if(!customstatus.emoji.id) {
+      statustxt.innerText = customstatus.emoji.name + customstatus.state
+      statusimg.setAttribute('hidden', '')
+    } else {
+      statusimg.removeAttribute('hidden')
+      statusimg.src = 'https://cdn.discordapp.com/emojis/'+customstatus.emoji.id
+      statustxt.innerText = customstatus.state
+    }
+
+    globalname.innerText = data.d.discord_user.global_name
+    username.innerText = `@${data.d.discord_user.username}`
+
+    // spotify
+    if(data.d.spotify !== null) {
+      spotifycont.style.display = 'block'
+
+      if(data.d.spotify.album_art_url !== null) {
+        spotifycover.src = data.d.spotify.album_art_url
+        spotifylink.setAttribute('href', '')
+        spotifylink.href = 'spotify://track/'+data.d.spotify.track_id
+        spotifylink.style.opacity = '1'
+      } else {
+        spotifycover.src = './assets/img/spotify.png'
+        spotifylink.removeAttribute('href')
+        spotifylink.removeAttribute('style')
       }
+
+      songtitle.innerText = data.d.spotify.song
+      songartist.innerText = data.d.spotify.artist
+      songalbum.innerText = data.d.spotify.album
+    } else {
+      spotifycont.style.display = 'none'
     }
-  } = await fetchResponse(USERID)
-  const avaturl = `${DISCCDN}/avatars/${USERID}/${avatar}?size=512`
-  pfp.src = avaturl
-}
 
-async function setStatus() {
-  const {
-    data: {
-      activities,
-      discord_status,
-      listening_to_spotify
+    // other activity
+    const activitystatus = data.d.activities.filter(m => m.type !== '4').pop()
+    console.log(activitystatus)
+    if(activitystatus.name === 'Twitch') {
+      activitycont.style.display = 'block'
+      activityname.innerText = activitystatus.name
+      activityname2.innerText = activitystatus.details
+      activityname3.innerText = activitystatus.state
+      activitylink.href = `https://twitch.tv/${activitystatus.state}`
+
+      const largeimagesplit = activitystatus.assets.large_image.split('https/')[1]
+      activityimg.src = 'https://'+largeimagesplit
+    } else {
+      activitycont.style.display = 'none'
     }
-  } = await fetchResponse(USERID)
-  switch (discord_status) {
-    case 'online':
-      statdot.style.background = '#3ba45d'
-      tooltipstatus.innerHTML = 'Online'
-      break
-    case 'dnd':
-      statdot.style.background = '#ed4245'
-      tooltipstatus.innerHTML = 'Do Not Disturb'
-      break
-    case 'idle':
-      statdot.style.background = '#faa81a'
-      tooltipstatus.innerHTML = 'Idle'
-      break
-    case 'offline':
-      statdot.style.background = '#747e8c'
-      tooltipstatus.innerHTML = 'Offline'
-      break
-  }
 
-  if(listening_to_spotify == true) {
-    spotifyinfocont.style.display = "block"
-  } else {
-    spotifyinfocont.style.display = ""
-    return
-  }
+  } catch{}
 }
-
-// async function setCustomStatus() {
-//   const {
-//     data: {
-//       discord_status,
-//       activities
-//     }
-//   } = await fetchResponse(USERID)
-//   if(discord_status == 'offline') {
-//     customstatus.style.display = 'none'
-//     return
-//   }
-//   const {
-//     state,
-//     emoji
-//   } = activities.find(m => m.type == 4)
-//   
-//   if(state === undefined) {
-//     statustxt.style.display = 'none'
-//   } else {
-//     statustxt.innerHTML = state
-//   }
-// 
-//   if(emoji === undefined) {
-//     statusimg.style.display = 'none'
-//   } else {
-//     const {
-//       emoji: {
-//         id,
-//         name
-//       }
-//     } = activities.find(m => m.type == 4)
-//     statusimg.src = `https://cdn.discordapp.com/emojis/${id}`
-//     statusimg.title = `:${name}:`
-//   }
-// }
-// i did it before but i cant remember how
-
-async function setProfileInfo() {
-  const {
-    data: {
-      discord_user: {
-        id,
-        username,
-        global_name
-      }
-    }
-  } = await fetchResponse(USERID)
-  globnametxt.insertAdjacentHTML('beforeend', global_name)
-  usernametxt.insertAdjacentHTML('beforeend', `@${username}`)
-  useridtxt.insertAdjacentHTML('afterbegin', id)
-}
-
-async function setSpotifyInfo() {
-  const {
-    data: {
-      spotify
-    }
-  } = await fetchResponse(USERID)
-
-  if(spotify === null) {
-    return
-  } else {
-    const {
-      data: {
-        spotify: {
-          track_id,
-          album,
-          album_art_url,
-          artist,
-          song
-        }
-      }
-    } = await fetchResponse(USERID)
-    albumart.src = album_art_url
-    songtitle.innerHTML = `<b>${song}</b>`
-    songartist.innerHTML = `by ${artist}`
-    songalbum.innerHTML = `on ${album}`
-    spotifylink.href = `https://open.spotify.com/track/${track_id}`
-    spotifylink.style.opacity = "1"
-    spotifylink.style.cursor = ""
-
-    if(album_art_url === null, track_id === null) {
-      albumart.src = './assets/img/spotify.png'
-      spotifylink.style.opacity = ""
-      spotifylink.style.cursor = "default"
-      spotifylink.removeAttribute("href")
-    }
-  }
-}
-
-
-function invoke() {
-  console.log(APIRUL+USERID)
-  setInterval(() => {
-    setStatus()
-    // setCustomStatus()
-    setSpotifyInfo()
-  }, 1000)
-  setAvatar()
-  setProfileInfo()
-}
-invoke()

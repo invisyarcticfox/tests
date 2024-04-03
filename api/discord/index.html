@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>discord</title>
-    <link rel="shortcut icon" href="https://shamshitty.xyz/assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://shamshitty.xyz/assets/avatar.png" type="image/x-icon">
     <link rel="stylesheet" href="https://shamshitty.xyz/assets/master.css">
     <link rel="stylesheet" href="./assets/styles/custom.css">
 </head>
@@ -17,11 +17,11 @@
         </div>
     </div>
     <div class="otherstuff">
-        <div hidden id="status"><img class="statusimg" src="" alt=""><span class="statustxt"></span></div>
-        <div id="globalname"></div>
-        <div id="username"></div>
-        <div id="userid" onclick="copyUID()">
-            <span class="userid"></span>
+        <div id="status"><img class="statusimg" src="" alt=""><span class="statustxt"></span></div>
+        <div id="globalname" style="font-size: 20px;"></div>
+        <div id="username" style="font-size: 20px;"></div>
+        <div id="userid" onclick="copyUID()" style="width: 250px;font-size: 20px;">
+            <span class="userid">470193291053498369</span>
             <span class="tooltiptext">click to copy!</span>
         </div>
     </div>
@@ -35,9 +35,23 @@
             <img id="albumart" src="" alt="">
         </div>
         <div class="songinfo">
-            <div id="songtitle"></div>
-            <div id="songartist"></div>
-            <div id="songalbum"></div>
+            <div id="songtitle"><b></b></div>
+            <div id="songartist">by: <i></i></div>
+            <div id="songalbum">on: <i></i></div>
+        </div>
+    </div>
+    <div class="activitycont">
+        <a class="twitchlink" href="" target="_blank" rel="noopener noreferrer">
+            <img class="twitchicon" src="./assets/img/twitch.svg">
+            <span class="tooltiptext">open stream!</span>
+        </a>
+        <div class="imgcont">
+            <img id="activityimg" src="" alt="">
+        </div>
+        <div class="activityinfo" style="width: 290px; left: -28%;">
+            <div id="activityname"><b></b></div>
+            <div id="activityname2"><i></i></div>
+            <div id="activityname3"><i></i></div>
         </div>
     </div>
 
@@ -54,6 +68,7 @@
         function copyText(text) {
             navigator.clipboard.writeText(text)
             console.log(`copied userid: ${text}`)
+            alert(`copied userid: ${text}`)
         }
     </script>
 </body>

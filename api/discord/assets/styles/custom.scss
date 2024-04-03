@@ -1,5 +1,6 @@
 body {
   font-family: monospace;
+  overflow: hidden;
 }
 @font-face {
   font-family: "Discordinated";
@@ -15,8 +16,8 @@ body {
 
   display: block;
   margin: 40px auto 20px;
-  width: 340px;
-  height: 340px;
+  width: 300px;
+  height: 300px;
 
   #pfp {
     width: 100%;
@@ -72,7 +73,7 @@ body {
   text-align: center;
   font-size: 25px;
   div {
-    width: 260px;
+    width: 100%;
     text-align: center;
     margin: 0 auto;
   }
@@ -106,10 +107,22 @@ body {
 }
 
 .spotifycont {
-  $wnh: 240px;
-  display: none;
-  margin: 20px auto 0;
+  position: relative;
+  float: left;
+  left: 17%;
   background: #1ed760aa;
+}
+.activitycont {
+  position: relative;
+  float: right;
+  right: 17%;
+  background: #8b44f7;
+}
+.spotifycont,
+.activitycont {
+  display: none;
+  $wnh: 240px;
+  margin: 40px auto 0;
   padding: 10px;
   width: 30%;
   height: calc($wnh);
@@ -127,7 +140,8 @@ body {
       border-radius: 25px;
     }
   }
-  .spotifylink {
+  .spotifylink,
+  .twitchlink {
     float: right;
     position: relative;
     border-radius: 50%;
@@ -152,17 +166,31 @@ body {
       outline: 2px #000 solid;
     }
   }
-  .songinfo {
-    width: $wnh;
+  .twitchlink {
+    opacity: 1;
+    border-radius: 0;
+    img {
+      border-radius: 0;
+      background: none;
+      outline: none;
+    }
+  }
+
+  .songinfo,
+  .activityinfo {
     float: right;
+    width: $wnh;
     text-align: center;
     display: block;
-    font-size: 17px;
+    font-size: 25px;
     padding-right: 10px;
     position: relative;
-    top: 33%;
+    top: 45%;
     left: -22%;
     transform: translate(50%, -50%);
+  }
+  .activityinfo {
+    top: 30%;
   }
 }
 
