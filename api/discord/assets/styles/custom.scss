@@ -120,7 +120,8 @@ body {
 }
 .spotifycont,
 .activitycont {
-  display: none;
+  opacity: .1;
+  transition: opacity .2s ease;
   $wnh: 240px;
   margin: 40px auto 0;
   padding: 10px;

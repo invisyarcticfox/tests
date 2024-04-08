@@ -52,7 +52,7 @@ ws.onmessage = ({data: msg}) => {
 
     // pfp and status and info
     pfp.src = discordurl+'/avatars/'+uid+'/'+data.d.discord_user.avatar+'?size=512';
-    statustt.innerText = data.d.discord_status
+    statustt.innerHTML = data.d.discord_status
     switch (data.d.discord_status) {
       case 'idle':
         statusdot.style.backgroundColor = '#f0b232'
@@ -73,21 +73,33 @@ ws.onmessage = ({data: msg}) => {
     }
 
     const customstatus = data.d.activities.filter(m => m.type !== '4').shift()
-    if(!customstatus.emoji.id) {
-      statustxt.innerText = customstatus.emoji.name + customstatus.state
-      statusimg.setAttribute('hidden', '')
+    if(customstatus.id === 'custom') {
+      if(customstatus.emoji) {
+        statusimg.src = `https://cdn.discordapp.com/emojis/${customstatus.emoji.id}`
+        statusimg.removeAttribute('hidden')
+      } else {
+        console.log('no src')
+        statusimg.src = ''
+        statusimg.setAttribute('hidden', '')
+      }
+      if(customstatus.state) {
+        statustxt.innerHTML = customstatus.state
+      } else {
+        console.log('no state')
+        statustxt.innerHTML = ''
+      }
     } else {
-      statusimg.removeAttribute('hidden')
-      statusimg.src = 'https://cdn.discordapp.com/emojis/'+customstatus.emoji.id
-      statustxt.innerText = customstatus.state
+      console.log('no status')
+      statusimg.setAttribute('hidden', '')
+      statustxt.innerHTML = ''
     }
 
-    globalname.innerText = data.d.discord_user.global_name
-    username.innerText = `@${data.d.discord_user.username}`
+    globalname.innerHTML = data.d.discord_user.global_name
+    username.innerHTML = `@${data.d.discord_user.username}`
 
     // spotify
     if(data.d.spotify !== null) {
-      spotifycont.style.display = 'block'
+      spotifycont.style.opacity = '1'
 
       if(data.d.spotify.album_art_url !== null) {
         spotifycover.src = data.d.spotify.album_art_url
@@ -100,27 +112,26 @@ ws.onmessage = ({data: msg}) => {
         spotifylink.removeAttribute('style')
       }
 
-      songtitle.innerText = data.d.spotify.song
-      songartist.innerText = data.d.spotify.artist
-      songalbum.innerText = data.d.spotify.album
+      songtitle.innerHTML = data.d.spotify.song
+      songartist.innerHTML = data.d.spotify.artist
+      songalbum.innerHTML = data.d.spotify.album
     } else {
-      spotifycont.style.display = 'none'
+      spotifycont.style.opacity = '.1'
     }
 
     // other activity
     const activitystatus = data.d.activities.filter(m => m.type !== '4').pop()
-    console.log(activitystatus)
     if(activitystatus.name === 'Twitch') {
-      activitycont.style.display = 'block'
-      activityname.innerText = activitystatus.name
-      activityname2.innerText = activitystatus.details
-      activityname3.innerText = activitystatus.state
+      activitycont.style.opacity = '1'
+      activityname.innerHTML = activitystatus.name
+      activityname2.innerHTML = activitystatus.details
+      activityname3.innerHTML = activitystatus.state
       activitylink.href = `https://twitch.tv/${activitystatus.state}`
 
       const largeimagesplit = activitystatus.assets.large_image.split('https/')[1]
       activityimg.src = 'https://'+largeimagesplit
     } else {
-      activitycont.style.display = 'none'
+      activitycont.style.opacity = '.1'
     }
 
   } catch{}
