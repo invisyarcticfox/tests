@@ -1,6 +1,6 @@
 body {
   font-family: monospace;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 @font-face {
   font-family: "Discordinated";
@@ -32,7 +32,7 @@ body {
     height: $sd-wh;
     position: relative;
     border-radius: 50%;
-    left: calc(($sd-wh * 4 - 20px));
+    left: calc(($sd-wh * 4 - 58px));
     bottom: calc($sd-wh + 10px);
     outline: 7px $outline;
     &:hover .tooltiptext {
@@ -106,43 +106,27 @@ body {
   }
 }
 
-.spotifycont {
-  position: relative;
-  float: left;
-  left: 17%;
-  background: #1ed760aa;
-}
-.activitycont {
-  position: relative;
-  float: right;
-  right: 17%;
-  background: #8b44f7;
-}
-.spotifycont,
-.activitycont {
+.spotifycont, .activitycont {
+  $wh: 240px;
   opacity: .1;
   transition: opacity .2s ease;
-  $wnh: 240px;
-  margin: 40px auto 0;
+  margin: 40px auto 200px;
   padding: 10px;
   width: 30%;
-  height: calc($wnh);
+  height: $wh;
   border-radius: 25px;
-
   .imgcont {
     float: left;
     display: block;
-    width: $wnh;
-    height: $wnh;
-    max-width: $wnh;
-    max-height: $wnh;
+    width: $wh;
+    height: $wh;
     img {
       height: 100%;
       border-radius: 25px;
     }
   }
-  .spotifylink,
-  .twitchlink {
+
+  .spotifylink, .twitchlink {
     float: right;
     position: relative;
     border-radius: 50%;
@@ -158,7 +142,6 @@ body {
       top: -110%;
       left: -10%;
     }
-
     img {
       border-radius: 50%;
       width: 100%;
@@ -167,20 +150,19 @@ body {
       outline: 2px #000 solid;
     }
   }
+
   .twitchlink {
-    opacity: 1;
-    border-radius: 0;
+    border-radius: 0%;
     img {
-      border-radius: 0;
+      border-radius: 0%;
       background: none;
       outline: none;
     }
   }
-
-  .songinfo,
-  .activityinfo {
+  
+  .songinfo, .activityinfo {
     float: right;
-    width: $wnh;
+    width: $wh;
     text-align: center;
     display: block;
     font-size: 25px;
@@ -190,10 +172,47 @@ body {
     left: -22%;
     transform: translate(50%, -50%);
   }
-  .activityinfo {
-    top: 30%;
+
+  #smallactivityimg {
+    $wh: 240px;
+    $tl: 154px;
+    display: block;
+    position: absolute;
+    background: #0005;
+    border-radius: 25% 0;
+    width: calc($wh * .4);
+    height: calc($wh * .4);
+    top: $tl;
+    left: $tl;
   }
 }
+
+.spotifycont {
+  position: relative;
+  float: left;
+  left: 17%;
+  background: #1ed760aa;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  .progress {
+    position: absolute;
+    background: #fff;
+    height: 5px;
+    width: 0%;
+    bottom: 0;
+    left: 0;
+    transition: width 1s linear;
+  }
+}
+.activitycont {
+  position: relative;
+  float: right;
+  right: 17%;
+  background: #8b44f7;
+}
+
+
 
 footer {
   position: fixed;

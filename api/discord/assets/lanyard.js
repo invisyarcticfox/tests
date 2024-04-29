@@ -5,6 +5,7 @@ const uid = '470193291053498369';
 const pfp = document.querySelector('#pfp')
 
 const statusdot = document.querySelector('#statusdot')
+const statuscont = document.querySelector('#status')
 const statustt = document.querySelector('.status.tooltiptext')
 const statusimg = document.querySelector('.statusimg')
 const statustxt = document.querySelector('.statustxt')
@@ -19,9 +20,11 @@ const spotifylink = document.querySelector('.spotifylink')
 const songtitle = document.querySelector('#songtitle b')
 const songartist = document.querySelector('#songartist i')
 const songalbum = document.querySelector('#songalbum i')
+const songprogress = document.querySelector('.spotifycont .progress')
 
 const activitycont = document.querySelector('.activitycont')
 const activityimg = document.querySelector('#activityimg')
+const activityimgsmall = document.querySelector('#smallactivityimg')
 const activitylink = document.querySelector('.twitchlink')
 const activityname = document.querySelector('#activityname b')
 const activityname2 = document.querySelector('#activityname2 i')
@@ -52,6 +55,9 @@ ws.onmessage = ({data: msg}) => {
 
     // pfp and status and info
     pfp.src = discordurl+'/avatars/'+uid+'/'+data.d.discord_user.avatar+'?size=512';
+    globalname.innerHTML = data.d.discord_user.global_name
+    username.innerHTML = `@${data.d.discord_user.username}`
+
     statustt.innerHTML = data.d.discord_status
     switch (data.d.discord_status) {
       case 'idle':
@@ -72,30 +78,30 @@ ws.onmessage = ({data: msg}) => {
         break;
     }
 
-    const customstatus = data.d.activities.filter(m => m.type !== '4').shift()
-    if(customstatus.id === 'custom') {
-      if(customstatus.emoji) {
-        statusimg.src = `https://cdn.discordapp.com/emojis/${customstatus.emoji.id}`
-        statusimg.removeAttribute('hidden')
+    if(data.d.activities.length == '0') {
+      statuscont.style.display = 'none'
+      return
+    } else {
+      const customstatus = data.d.activities.filter(m => m.type !== '4').shift()
+      if(customstatus.id === 'custom') {
+        if(customstatus.emoji) {
+          statusimg.src = `https://cdn.discordapp.com/emojis/${customstatus.emoji.id}`
+          statusimg.removeAttribute('hidden')
+        } else {
+          statusimg.src = ''
+          statusimg.setAttribute('hidden', '')
+        }
+        if(customstatus.state) {
+          statustxt.innerHTML = customstatus.state
+        } else {
+          statustxt.innerHTML = ''
+        }
       } else {
-        console.log('no src')
-        statusimg.src = ''
         statusimg.setAttribute('hidden', '')
-      }
-      if(customstatus.state) {
-        statustxt.innerHTML = customstatus.state
-      } else {
-        console.log('no state')
         statustxt.innerHTML = ''
       }
-    } else {
-      console.log('no status')
-      statusimg.setAttribute('hidden', '')
-      statustxt.innerHTML = ''
     }
 
-    globalname.innerHTML = data.d.discord_user.global_name
-    username.innerHTML = `@${data.d.discord_user.username}`
 
     // spotify
     if(data.d.spotify !== null) {
@@ -115,8 +121,16 @@ ws.onmessage = ({data: msg}) => {
       songtitle.innerHTML = data.d.spotify.song
       songartist.innerHTML = data.d.spotify.artist
       songalbum.innerHTML = data.d.spotify.album
+
+      const total = data.d.spotify.timestamps.end - data.d.spotify.timestamps.start;
+      setInterval(() => {
+        const progress = 100 - (100 * (data.d.spotify.timestamps.end - new Date().getTime())) / total;
+        songprogress.style.width = `${progress.toString().substring(0,4)}%`
+      }, 1000);
     } else {
       spotifycont.style.opacity = '.1'
+      songprogress.style.display = 'none'
+      songprogress.style.width = ''
     }
 
     // other activity
