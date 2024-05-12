@@ -4,8 +4,8 @@ const uid = '470193291053498369';
 
 const pfp = document.querySelector('#pfp')
 
-const statusdot = document.querySelector('#statusdot')
 const statuscont = document.querySelector('#status')
+const statusdot = document.querySelector('#statusdot')
 const statustt = document.querySelector('.status.tooltiptext')
 const statusimg = document.querySelector('.statusimg')
 const statustxt = document.querySelector('.statustxt')
@@ -53,8 +53,18 @@ ws.onmessage = ({data: msg}) => {
         break
     }
 
+    if(!data.d.discord_user) {
+      pfp.src = 'https://shamshitty.xyz/assets/avatar.png'
+      globalname.innerHTML = 'Lucas.'
+      username.innerHTML = '@invisyarcticfox'
+      statuscont.style.display = 'none'
+      statusdot.style.backgroundColor = '#80848e'
+      statustt.innerHTML = 'offline'
+    }
+
+
     // pfp and status and info
-    pfp.src = discordurl+'/avatars/'+uid+'/'+data.d.discord_user.avatar+'?size=512';
+    pfp.src = discordurl+'/avatars/'+uid+'/'+data.d.discord_user.avatar+'?size=512'
     globalname.innerHTML = data.d.discord_user.global_name
     username.innerHTML = `@${data.d.discord_user.username}`
 

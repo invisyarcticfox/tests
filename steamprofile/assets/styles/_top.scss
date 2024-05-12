@@ -1,0 +1,134 @@
+div.avatar {
+  float: left;
+  width: 200px;
+  height: 200px;
+
+  img.avatar {
+    $height: 180px;
+    display: block;
+    position: relative;
+    height: $height;
+    z-index: 1;
+    &.decoration {
+      height: calc($height * 1.2);
+      z-index: 2;
+      top: calc(($height * 1.12) * -1);
+      left: -16px;
+    }
+  }
+}
+
+
+.badge {
+  width: 400px;
+  float: right;
+  font-size: 20px;
+  padding-right: 10px;
+
+  .level {
+    font-weight: 400;
+    span {
+      border-radius: 50%;
+      outline: 2px solid #c02942;
+      padding: 5px;
+      margin-left: 5px;
+    }
+  }
+
+  .badgeinfo {
+    background: vars.$accent2;
+    width: 100%;
+    height: 75px;
+    margin-top: 20px;
+    border-radius: 5px;
+    img {
+      height: 54px;
+      width: 54px;
+      margin: 10px;
+      float: left;
+    }
+    span {
+      position: relative;
+      font-size: 15px;
+    }
+  }
+  
+  .button,
+  .button button {
+    display: block;
+    margin: 10px auto 0 auto;
+    width: 95%;
+    height: 40px;
+  }
+  .button button {
+    background: #495235;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: vars.$bodyfg2;
+    font-weight: 500;
+    font-size: 18px;
+    box-shadow: none;
+    transition-property: box-shadow color background;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+    &:hover {
+      cursor: pointer;
+      color: vars.$bodyfg;
+      background: #525b3b;
+      box-shadow: 0 0 15px 1px #0005;
+      transition-property: box-shadow color background;
+      transition-duration: 200ms;
+      transition-timing-function: ease;
+    }
+  }
+}
+
+.info {
+  float: right;
+  position: relative;
+  width: calc(100% - 200px);
+  left: 10px;
+  text-align: left;
+
+  .nameinfo,
+  .bio {
+    width: 55%;
+    .name {
+      font-weight: 400;
+      font-size: 25px;
+    }
+    .small {
+      font-weight: 400;
+      font-size: 15px;
+      margin-top: 5px;
+      color: #aaa;
+      img {
+        position: relative;
+        height: 12px;
+        top: 0;
+        margin: 0 5px;
+      }
+    }
+  }
+
+  .bio {
+    font-weight: 400;
+    margin: 25px 0;
+    font-size: 14px;
+
+    div:not(:has(a))::before {
+      content: '-';
+    }
+    img {
+      position: relative;
+      display: inline-block;
+      height: 15px;
+      margin: 0 5px;
+      top: 2px;
+      &[src*='ferryman']:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}

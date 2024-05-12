@@ -1,0 +1,22 @@
+@use './vars';
+@import './master';
+
+#root {
+  $dsm: 15px #0008;
+  width: 50vw;
+  background: vars.$mainbg;
+  height: 100vh;
+  display: block;
+  margin: 20px auto 0 auto;
+  box-shadow: 0 0 20px 5px #000;
+  backdrop-filter: blur(25px);
+}
+
+
+.top {
+  display: flex;
+  height: max-content;
+  padding: 30px;
+  padding-top: 40px;
+  @import './top';
+}
