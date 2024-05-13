@@ -1,22 +1,52 @@
 @use './vars';
-@import './master';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+
+  color: vars.$bodyfg;
+  background: vars.$bodybg url("../img/backgroundimg.jpg") no-repeat 0 0 / cover;
+  background-size: 1920px 1080px;
+}
+
+a,
+a:visited {
+  color: vars.$bodyfg;
+  text-decoration: none;
+}
+a:focus,
+a:active,
+a:hover {
+  color: vars.$bodyfg;
+  text-decoration: underline;
+}
+
 
 #root {
   $dsm: 15px #0008;
   width: 50vw;
   background: vars.$mainbg;
-  height: 100vh;
+  height: max-content;
   display: block;
-  margin: 20px auto 0 auto;
+  margin: 20px auto 100px auto;
   box-shadow: 0 0 20px 5px #000;
   backdrop-filter: blur(25px);
+  border-radius: 10px;
 }
 
-
-.top {
+#top {
   display: flex;
-  height: max-content;
-  padding: 30px;
-  padding-top: 40px;
+  font-weight: 300;
+  height: 200px;
+  padding: 40px 30px 20px;
   @import './top';
+}
+
+#infostuff {
+  display: flex;
+  font-weight: 300;
+  height: 100%;
+  @import './info';
 }
