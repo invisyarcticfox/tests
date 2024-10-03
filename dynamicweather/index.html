@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="shortcut icon" href="data:;base64,iVBORw0KGgo=" type="image/x-icon">
+    <style>
+        body {
+            background: #141414;
+            color: #fff;
+            font-size: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .desc {
+            float: left;
+            margin-right: 100px;
+        }
+        .desc img {
+            display: block;
+            width: 300px;
+            margin: 10px 0;
+        }
+        .info {
+            float: left;
+            width: max-content;
+            background: #555;
+            padding: 10px;
+        }
+        .info div {
+            margin: 5px 0;
+        }
+    </style>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div class="desc">
+        <span>get lat and lon from specified location</span>
+        <img src="./shortcuts.JPEG" alt="">
+        <span>put that data into json file</span><br>
+        <span style="opacity: .75;"><i>(manually, cant figure out an automated way yet)</i></span>
+        <img src="./s3drive.JPEG" alt="">
+        <span>openweathermap gets those co-ords and gets the weather</span>
+    </div>
+    <br>
+    <br>
+    <div class="info"></div>
+</body>
+</html>

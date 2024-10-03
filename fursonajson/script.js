@@ -1,5 +1,5 @@
 async function getData() {
-  const url = "./sonaart.json";
+  const url = "https://cdn.invisyarcticfox.uk/sonaart.json";
   try {
     const response = await fetch(url);
     if (!response.ok) {
