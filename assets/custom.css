@@ -63,9 +63,6 @@ table tr td:not(:nth-child(1), :nth-child(2)) {
 table tr:hover {
   outline: 1px solid #75747a;
 }
-table td:nth-child(3)::after {
-  content: "KB";
-}
 table td a:hover {
   color: #fff;
   text-decoration: underline;
