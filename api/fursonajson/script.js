@@ -1,7 +1,7 @@
 async function getData() {
   const url = "https://cdn.invisyarcticfox.uk/sonaart.json";
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {method: "GET"});
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -14,7 +14,7 @@ async function getData() {
 
       document.body.insertBefore(cont, document.querySelector('div#images'))
       cont.innerHTML = `
-        <img src='${json[key].imgurl}' alt='${json[key].artist}' loading='lazy'>
+        <img src='${json[key].imgurl}' alt='${json[key].artist}' loading='lazy' style='background-image: url(${json[key].smallimgurl}); background-size: contain;'>
         <figcaption>
           <a href='${json[key].artisturl}' target='_blank' rel='noopener noreferrer'>
             @<u>${json[key].artist}</u>
