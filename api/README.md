@@ -11,3 +11,7 @@ then fetches weather info based on those co-ordinates
 
 ### Fursona JSON
 fetch a JSON file with data about various art i have, and then write that data to an html page
+
+
+### Films
+gets recently watched/liked films, asks TMDB for the poster, and displays it.
